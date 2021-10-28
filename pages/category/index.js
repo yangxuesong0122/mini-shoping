@@ -6,7 +6,8 @@ Page({
   data: {
     leftMenuList: [], // 左侧菜单数据
     rightGoodList: [], // 右侧商品数据
-    currentIndex: 0 // 当前选中菜单下标
+    currentIndex: 0, // 当前选中菜单下标
+    scrollTop: 0 // 右侧内容滚动条距离顶部的距离
   },
   cates: [], // 接口的返回数据
   /**
@@ -73,7 +74,8 @@ Page({
     let rightGoodList = this.cates[index].children
     this.setData({
       currentIndex: index,
-      rightGoodList
+      rightGoodList,
+      scrollTop: 0 // 重新设置右侧内同的scroll-view标签距离顶部的距离
     })
   }
 })
