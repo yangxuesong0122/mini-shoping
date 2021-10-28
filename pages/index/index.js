@@ -1,8 +1,9 @@
 import { request } from "../../request/index"
 Page({
   data: {
-    swiperList: [],
-    catesList: []
+    swiperList: [], // 轮播图数据
+    catesList: [], // 分类导航数据
+    floorList: [] // 楼层数据
   },
   // 页面开始加载触发
   onLoad: function(options) {
@@ -10,6 +11,8 @@ Page({
     this.getSwiperList()
     // 获取分类导航数据
     this.getCatesList()
+    // 获取楼层数据
+    this.getFloorList()
   },
   // 获取轮播图数据
   getSwiperList() {
@@ -28,6 +31,16 @@ Page({
     }).then(data => {
       this.setData({
         catesList: data
+      })
+    })
+  },
+  // 获取楼层数据
+  getFloorList() {
+    request({
+      url: 'home/floordata',
+    }).then(data => {
+      this.setData({
+        floorList: data
       })
     })
   },
