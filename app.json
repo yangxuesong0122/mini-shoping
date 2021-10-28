@@ -12,14 +12,13 @@
     "pages/feedback/index",
     "pages/login/index",
     "pages/auth/index",
-    "pages//index",
     "pages/pay/index"
   ],
   "window":{
     "backgroundTextStyle":"light",
-    "navigationBarBackgroundColor": "#fff",
+    "navigationBarBackgroundColor": "#eb4450",
     "navigationBarTitleText": "雪松淘购",
-    "navigationBarTextStyle":"black"
+    "navigationBarTextStyle":"white"
   },
   "tabBar": {
     "color": "#999",
