@@ -1,39 +1,34 @@
-//Page Object
+import { request } from "../../request/index"
 Page({
   data: {
-    
+    swiperList: [],
+    catesList: []
   },
-  //options(Object)
+  // 页面开始加载触发
   onLoad: function(options) {
-    
+    // 获取轮播图数据
+    this.getSwiperList()
+    // 获取分类导航数据
+    this.getCatesList()
   },
-  onReady: function() {
-    
+  // 获取轮播图数据
+  getSwiperList() {
+    request({
+      url: 'home/swiperdata',
+    }).then(data => {
+      this.setData({
+        swiperList: data
+      })
+    })
   },
-  onShow: function() {
-    
+  // 获取分类导航数据
+  getCatesList() {
+    request({
+      url: 'home/catitems',
+    }).then(data => {
+      this.setData({
+        catesList: data
+      })
+    })
   },
-  onHide: function() {
-
-  },
-  onUnload: function() {
-
-  },
-  onPullDownRefresh: function() {
-
-  },
-  onReachBottom: function() {
-
-  },
-  onShareAppMessage: function() {
-
-  },
-  onPageScroll: function() {
-
-  },
-  //item(index,pagePath,text)
-  onTabItemTap:function(item) {
-
-  }
 });
-  

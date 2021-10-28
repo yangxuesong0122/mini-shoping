@@ -1,4 +1,17 @@
-view {
-  /*使用主题颜色*/
-  /*color: var(--themeColor);*/
+.home-swiper swiper {
+  width: 750rpx;
+  height: 340rpx;
+}
+.home-swiper swiper image {
+  width: 100%;
+}
+.home-cate {
+  display: flex;
+  padding: 20rpx;
+}
+.home-cate navigator {
+  flex: 1;
+}
+.home-cate navigator image {
+  width: 100%;
 }
