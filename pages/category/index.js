@@ -1,4 +1,5 @@
 import { request } from "../../request/index"
+import regeneratorRuntime from '../../lib/runtime/runtime'
 Page({
   /**
    * 页面的初始数据
@@ -51,21 +52,32 @@ Page({
     }
   },
   // 获取分类数据
-  getCates() {
-    request({
-      url: 'categories'
-    }).then(data => {
-      this.cates = data
-      // 把接口的数据存入到本地存储中
-      wx.setStorageSync("cates", { time: Date.now(), data: this.cates });
-      // 左侧菜单数据
-      let leftMenuList = this.cates.map(item => item.cat_name)
-      // 右侧商品数据
-      let rightGoodList = this.cates[0].children
-      this.setData({
-        leftMenuList,
-        rightGoodList
-      })
+  async getCates() {
+    // request({
+    //   url: 'categories'
+    // }).then(data => {
+    //   this.cates = data
+    //   // 把接口的数据存入到本地存储中
+    //   wx.setStorageSync("cates", { time: Date.now(), data: this.cates });
+    //   // 左侧菜单数据
+    //   let leftMenuList = this.cates.map(item => item.cat_name)
+    //   // 右侧商品数据
+    //   let rightGoodList = this.cates[0].children
+    //   this.setData({
+    //     leftMenuList,
+    //     rightGoodList
+    //   })
+    // })
+    this.cates = await request({url: 'categories'})
+    // 把接口的数据存入到本地存储中
+    wx.setStorageSync("cates", { time: Date.now(), data: this.cates });
+    // 左侧菜单数据
+    let leftMenuList = this.cates.map(item => item.cat_name)
+    // 右侧商品数据
+    let rightGoodList = this.cates[0].children
+    this.setData({
+      leftMenuList,
+      rightGoodList
     })
   },
   // 左侧菜单点击事件
