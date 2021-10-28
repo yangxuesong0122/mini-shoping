@@ -18,6 +18,9 @@
 .home-floor .floor-group .floor-title image {
   width: 100%;
 }
+.home-floor .floor-group .floor-list {
+  overflow: hidden;
+}
 .home-floor .floor-group .floor-list navigator {
   float: left;
   width: 33.33%;
