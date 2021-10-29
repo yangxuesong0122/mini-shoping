@@ -30,11 +30,11 @@ export const request = (params) => {
         reject(err);
       },
       complete:() => {
-      ajaxTimes--;
-      if(ajaxTimes === 0) {
-        //  关闭正在等待的图标
-        wx.hideLoading();
-      }
+        ajaxTimes--;
+        if(ajaxTimes === 0) {
+          //  关闭正在等待的图标
+          wx.hideLoading();
+        }
       }
     });
   })
