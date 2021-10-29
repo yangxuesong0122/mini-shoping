@@ -4,6 +4,7 @@
     <block wx:if="{{tabs[0].isActive}}">
       <view class="first_tab">
         <navigator
+          url="/pages/goods_detail/index?goods_id={{item.goods_id}}"
           wx:for="{{goodsList}}"
           wx:key="goods_id"
           class="goods_item">
