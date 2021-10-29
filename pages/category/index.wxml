@@ -11,7 +11,6 @@
       data-index="{{index}}">
         {{item}}
       </view>
-        
     </scroll-view>
     <!--右侧商品内容-->
     <scroll-view scroll-y scroll-top="{{scrollTop}}" class="right-content">
@@ -32,7 +31,8 @@
             wx:for-item="item2"
             wx:for-index="index2"
             wx:key="cat_id"
-            open-type="navigate">
+            open-type="navigate"
+            url="/pages/goods_list/index?cid={{item2.cat_id}}">
             <image src="{{item2.cat_icon}}" mode="widthFix"/>
             <view class="goods_name">{{item2.cat_name}}</view>
           </navigator>
@@ -41,4 +41,4 @@
     </scroll-view>
   </view>
 </view>
-  
+
