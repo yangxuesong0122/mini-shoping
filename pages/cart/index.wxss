@@ -48,7 +48,7 @@ page {
 .cart_content .cart_main .cart_item .cart_info {
   flex: 4;
   display: flex;
-  font-display: column;
+  flex-direction: column;
   justify-content: space-around;
 }
 .cart_content .cart_main .cart_item .cart_info .good_name {
