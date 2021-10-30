@@ -1,11 +1,77 @@
 <!--收货地址-->
 <view class="recive_address">
-  <view class="address_btn">
-    <button bindtap="handleChooseAddress" type="primary" plain>
-      获取收货地址
-    </button>
+  <!--收货地址不存在显示按钮-->
+  <view wx:if="{{!address.userName}}" class="address_btn">
+    <button bindtap="handleChooseAddress" type="primary" plain>获取收货地址</button>
+  </view>
+  <!--收货地址存在，显示收获地址信息-->
+  <view wx:else class="user_adderss">
+    <view class="user_info">
+      <view>收货人：{{address.userName}}</view>
+      <view>{{address.all}}</view>
+    </view>
+    <view class="user_phone">
+      {{address.telNumber}}
+    </view>
+  </view>
+</view>
+
+<!--购物车数据-->
+<view class="cart_content">
+  <view class="cart_title">购物车</view>
+  <view class="cart_main">
+    <view class="cart_item">
+      <!--复选框-->
+      <view class="cart_checkbox">
+        <checkbox-group bindchange="">
+          <checkbox></checkbox>
+        </checkbox-group>
+          
+      </view>
+      <!--商品图片-->
+      <navigator class="cart_img">
+        <image  mode="widthFix" src="http://image1.suning.cn/uimg/b2c/newcatentries/0000000000-000000000160455569_2_400x400.jpg"/>
+      </navigator>
+      <!--商品信息-->
+      <view class="cart_info">
+        <view class="good_name">
+          
+        </view>
+        <view class="good_price">
+          <view class="price">
+            
+          </view>
+          <view class="num_tool">
+            <view class="num_edit">-</view>
+            <view class="num">99</view>
+            <view class="num_edit">+</view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>
+
+<!--底部工具栏-->
+<view class="foot_tool">
+  <!--全选-->
+  <view class="all_check">
+    <checkbox-group>
+      <checkbox>全选</checkbox>
+    </checkbox-group>
       
   </view>
-    
+  <!--总价格-->
+  <view class="total_price">
+    <view class="price">
+      合计：<text class="price_text">￥99</text>
+    </view>
+    <view>包含运费</view>
+  </view>
+  <!--结算-->
+  <view class="order-pay">
+    结算(2)
+  </view>
 </view>
+  
   
