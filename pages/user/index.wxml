@@ -38,15 +38,15 @@
     <view class="orders">
       <view class="orders-title">我的订单</view>
       <view class="orders-datail">
-        <navigator url="" open-type="navigate">
+        <navigator url="/pages/order/index?type=1" open-type="navigate">
           <view class="iconfont icon-ding_dan"></view>
           <view class="title">全部订单</view>
         </navigator>
-        <navigator url="" open-type="navigate">
+        <navigator url="/pages/order/index?type=2" open-type="navigate">
           <view class="iconfont icon-fukuantongzhi"></view>
           <view class="title">待付款</view>
         </navigator>
-        <navigator url="" open-type="navigate">
+        <navigator url="/pages/order/index?type=3" open-type="navigate">
           <view class="iconfont icon-fukuantongzhi"></view>
           <view class="title">待收货</view>
         </navigator>
