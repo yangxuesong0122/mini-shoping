@@ -18,7 +18,7 @@
   7 删除后的购物车数据 填充回缓存
   8 再跳转页面 
  */
-import { getSetting, chooseAddress, openSetting, showToast, showModal } from "../../utils/asyncWx"
+import { requestPayment, showToast } from "../../utils/asyncWx"
 import { request } from "../../request/index"
 // 勾选开发者工具里面的增强编译即可
 // import regeneratorRuntime from '../../lib/runtime/runtime'
@@ -65,39 +65,65 @@ Page({
   },
   // 支付
   async handlePay() {
-    // 判断缓存中有没有token
-    const token = wx.getStorageSync('token')
-    if (!token) {
-      wx.navigateTo({
-        url: '/pages/auth/index'
-      })
-      return
-    }
-    // 创建订单
-    // 请求头参数
-    const header = {Authorization: token}
-    // 请求体参数
-    const order_price = this.data.totalPrice
-    const consignee_addr = this.data.address.all
-    let goods = this.data.cart.map(item => {
-      return {
-        goods_id: item.goods_id,
-        goods_number: item.num,
-        goods_price: item.goods_price
+    try {
+      // 判断缓存中有没有token
+      const token = wx.getStorageSync('token')
+      if (!token) {
+        wx.navigateTo({
+          url: '/pages/auth/index'
+        })
+        return
       }
-    })
-    let params = {
-      order_price,
-      consignee_addr,
-      goods
+      // 创建订单
+      // 请求头参数
+      // const header = {Authorization: token}
+      // 请求体参数
+      const order_price = this.data.totalPrice
+      const consignee_addr = this.data.address.all
+      let goods = this.data.cart.map(item => {
+        return {
+          goods_id: item.goods_id,
+          goods_number: item.num,
+          goods_price: item.goods_price
+        }
+      })
+      let params = {
+        order_price,
+        consignee_addr,
+        goods
+      }
+      // 创建订单
+      let {order_number} = await request({
+        url: 'my/orders/create',
+        method: 'post',
+        data: params
+      })
+      // 发起预支付接口
+      const {pay} = await request({
+        url: 'my/orders/req_unifiedorder',
+        method: 'post',
+        data: {order_number}
+      })
+      // // 发起微信支付
+      // const res = requestPayment(pay)
+      // // 这一步支付不成功，因为没有企业账号
+      // // 查询后台订单状态
+      // const res1 = request({
+      //   url: 'my/orders/chkOrder',
+      //   method: 'post',
+      //   data: {order_number}
+      // })
+      await showToast('支付成功')
+      // 删除缓存中被选中的商品，然后重新填充到缓存
+      let newCart = wx.getStorageSync("cart") || []
+      newCart = newCart.filter(v => !v.checked)
+      wx.setStorageSync('cart', newCart)
+      // 跳转到订单页面
+      wx.navigateTo({
+        url: '/pages/order/index'
+      })
+    } catch (error) {
+      await showToast('支付失败')
     }
-    // 创建订单
-    let {order_number} = await request({
-      url: 'my/orders/create',
-      method: 'post',
-      header,
-      data: params
-    })
-    console.log(order_number)
   }
 })

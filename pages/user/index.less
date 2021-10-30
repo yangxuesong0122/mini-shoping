@@ -1,0 +1,115 @@
+page {
+  background-color: #edece8;
+}
+.user_info {
+  height: 45vh;
+  overflow: hidden;
+  background-color: var(--themeColor);
+  position: relative;
+  .user_img {
+    position: relative;
+    .user_bg {
+      height: 45vh;
+      // 高斯模糊
+      filter: blur(10rpx);
+    }
+    .user_detail {
+      position: absolute;
+      left: 50%;
+      top: 20%;
+      transform: translate(-50%);
+      text-align: center;
+      .user_icon {
+        width: 150rpx;
+        height: 150rpx;
+        border-radius: 50%;
+      }
+      .user_name {
+        color: #fff;
+        margin-top: 40rpx;
+        font-size: 40rpx;
+      }
+    }
+  }
+  .login_btn {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 38rpx;
+    color: #fff;
+    border: 1rpx solid #fff;
+    border-radius: 10rpx;
+    padding: 10rpx 20rpx;
+  }
+}
+.user_content {
+  position: relative;
+  .user_main {
+    color: #666;
+    padding-bottom: 100rpx;
+    position: absolute;
+    width: 90%;
+    left: 50%;
+    top: -40rpx;
+    transform: translate(-50%);
+    .about_my {
+      padding: 10rpx 0;
+      display: flex;
+      background-color: #fff;
+      navigator {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        flex: 1;
+        .num {
+          color: var(--themeColor);
+        }
+        .title {
+  
+        }
+      }
+    }
+    .orders {
+      background-color: #fff;
+      margin-top: 20rpx;
+      .orders-title {
+        padding: 20rpx;
+        border-bottom: 1rpx solid #ccc;
+      }
+      .orders-datail {
+        display: flex;
+        navigator {
+          padding: 15rpx 0;
+          flex: 1;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          .iconfont {
+            color: var(--themeColor);
+            font-size: 40rpx;
+          }
+        }
+      }
+    }
+    .address {
+      background-color: #fff;
+      padding: 20rpx 10rpx;
+      margin-top: 20rpx;
+    }
+    .app_info {
+      background-color: #fff;
+      margin-top: 20rpx;
+      .app_info_item {
+        padding: 20rpx 10rpx;
+        border-bottom: 1rpx solid #ccc;
+      }
+      .content {
+        display: flex;
+        justify-content: space-between;
+      }
+    }
+  }
+}
