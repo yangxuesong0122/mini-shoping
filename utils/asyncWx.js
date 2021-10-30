@@ -51,3 +51,18 @@ export const showModal = (content) => {
     });
   })
 }
+
+export const showToast = (content) => {
+  return new Promise((resolve, reject) => {
+    wx.showToast({
+      title: content,
+      icon: 'none',
+      success: (res) => {
+        resolve(res)
+      },
+      fail: (err) => {
+        reject(err)
+      }
+    });
+  })
+}

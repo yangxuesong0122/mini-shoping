@@ -61,7 +61,7 @@
     2 判断用户有没有选购商品
     3 经过以上的验证 跳转到 支付页面！ 
 */
-import { getSetting, chooseAddress, openSetting, showModal } from "../../utils/asyncWx"
+import { getSetting, chooseAddress, openSetting, showToast, showModal } from "../../utils/asyncWx"
 // 勾选开发者工具里面的增强编译即可
 // import regeneratorRuntime from '../../lib/runtime/runtime'
 
@@ -216,5 +216,23 @@ Page({
       cart[index].num += op
       this.setCart(cart)
     }
+  },
+  // 结算
+  async handlePay() {
+    // 判断有没有收货地址
+    const {address, totalNum} = this.data
+    if (!address.userName) {
+      await showToast('你还没有选择收货地址')
+      return
+    }
+    // 判断用户有没有选择商品
+    if (!totalNum) {
+      await showToast('你还没有选择商品')
+      return
+    }
+    // 跳转到支付页面
+    wx.navigateTo({
+      url: '/pages/pay/index'
+    })
   }
 })
