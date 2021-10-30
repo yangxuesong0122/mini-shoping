@@ -61,7 +61,7 @@
     2 判断用户有没有选购商品
     3 经过以上的验证 跳转到 支付页面！ 
 */
-import { getSetting, chooseAddress, openSetting } from "../../utils/asyncWx"
+import { getSetting, chooseAddress, openSetting, showModal } from "../../utils/asyncWx"
 // 勾选开发者工具里面的增强编译即可
 // import regeneratorRuntime from '../../lib/runtime/runtime'
 
@@ -188,5 +188,33 @@ Page({
       v.checked = !allChecked
     })
     this.setCart(cart)
+  },
+  // 商品数量编辑
+  async handleNumEdit(e) {
+    const {op, id} = e.currentTarget.dataset
+    // 获取购物车数组
+    let {cart} = this.data
+    // 找到被修改的商品对象
+    let index = cart.findIndex(v => v.goods_id === id)
+    // if (op === '+') {
+    //   cart[index].num += 1
+    // } else {
+    //   if (cart[index].num > 0) {
+    //     cart[index].num -= 1
+    //   } else {
+    //     cart[index].num = 0
+    //   }
+    // }
+    // 判断是否要执行删除
+    if (cart[index].num === 1 && op === -1) {
+      let res = await showModal('你确定要删除该商品吗?')
+      if (res.confirm) {
+        cart.splice(index, 1)
+        this.setCart(cart)
+      }
+    } else {
+      cart[index].num += op
+      this.setCart(cart)
+    }
   }
 })

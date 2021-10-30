@@ -20,33 +20,38 @@
 <view class="cart_content">
   <view class="cart_title">购物车</view>
   <view class="cart_main">
-    <view
-      wx:for="{{cart}}"
-      wx:key="goods_id"
-      class="cart_item">
-      <!--复选框-->
-      <view class="cart_checkbox">
-        <checkbox-group data-id="{{item.goods_id}}" bindchange="handleItemCheck">
-          <checkbox checked="{{item.checked}}"></checkbox>
-        </checkbox-group>
-      </view>
-      <!--商品图片-->
-      <navigator class="cart_img">
-        <image mode="widthFix" src="{{item.goods_small_logo}}"/>
-      </navigator>
-      <!--商品信息-->
-      <view class="cart_info">
-        <view class="good_name">{{item.goods_name}}</view>
-        <view class="good_price">
-          <view class="price">￥{{item.goods_price}}</view>
-          <view class="num_tool">
-            <view class="num_edit">-</view>
-            <view class="num">{{item.num}}</view>
-            <view class="num_edit">+</view>
+    <block wx:if="{{cart.length}}">
+      <view
+        wx:for="{{cart}}"
+        wx:key="goods_id"
+        class="cart_item">
+        <!--复选框-->
+        <view class="cart_checkbox">
+          <checkbox-group data-id="{{item.goods_id}}" bindchange="handleItemCheck">
+            <checkbox checked="{{item.checked}}"></checkbox>
+          </checkbox-group>
+        </view>
+        <!--商品图片-->
+        <navigator class="cart_img">
+          <image mode="widthFix" src="{{item.goods_small_logo}}"/>
+        </navigator>
+        <!--商品信息-->
+        <view class="cart_info">
+          <view class="good_name">{{item.goods_name}}</view>
+          <view class="good_price">
+            <view class="price">￥{{item.goods_price}}</view>
+            <view class="num_tool">
+              <view class="num_edit" bindtap="handleNumEdit" data-id="{{item.goods_id}}" data-op="{{-1}}">-</view>
+              <view class="num">{{item.num}}</view>
+              <view class="num_edit" bindtap="handleNumEdit" data-op="{{1}}" data-id="{{item.goods_id}}">+</view>
+            </view>
           </view>
         </view>
       </view>
-    </view>
+    </block>
+    <block wx:else>
+      <image mode="widthFix" src="http://hbimg.b0.upaiyun.com/e1b1467beea0a9c7d6a56b32bac6d7e5dcd914f7c3e6-YTwUd6_fw658"></image>
+    </block>
   </view>
 </view>
 
