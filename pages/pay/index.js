@@ -5,7 +5,7 @@
 2 微信支付
   1 哪些人 哪些帐号 可以实现微信支付
     1 企业帐号 
-    2 企业帐号的小程序后台中 必须 给开发者 添加上白名单 
+    2 企业帐号的小程序后台中必须给开发者添加上白名单 
       1 一个 appid 可以同时绑定多个开发者
       2 这些开发者就可以公用这个appid 和 它的开发权限  
 3 支付按钮
@@ -19,6 +19,7 @@
   8 再跳转页面 
  */
 import { getSetting, chooseAddress, openSetting, showToast, showModal } from "../../utils/asyncWx"
+import { request } from "../../request/index"
 // 勾选开发者工具里面的增强编译即可
 // import regeneratorRuntime from '../../lib/runtime/runtime'
 
@@ -61,5 +62,42 @@ Page({
    */
   onLoad: function (options) {
 
+  },
+  // 支付
+  async handlePay() {
+    // 判断缓存中有没有token
+    const token = wx.getStorageSync('token')
+    if (!token) {
+      wx.navigateTo({
+        url: '/pages/auth/index'
+      })
+      return
+    }
+    // 创建订单
+    // 请求头参数
+    const header = {Authorization: token}
+    // 请求体参数
+    const order_price = this.data.totalPrice
+    const consignee_addr = this.data.address.all
+    let goods = this.data.cart.map(item => {
+      return {
+        goods_id: item.goods_id,
+        goods_number: item.num,
+        goods_price: item.goods_price
+      }
+    })
+    let params = {
+      order_price,
+      consignee_addr,
+      goods
+    }
+    // 创建订单
+    let {order_number} = await request({
+      url: 'my/orders/create',
+      method: 'post',
+      header,
+      data: params
+    })
+    console.log(order_number)
   }
 })

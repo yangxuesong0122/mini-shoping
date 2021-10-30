@@ -66,3 +66,30 @@ export const showToast = (content) => {
     });
   })
 }
+
+export const getUserProfile = (content) => {
+  return new Promise((resolve, reject) => {
+    wx.getUserProfile({
+      desc: '用于完善会员资料',
+      success: (res) => {
+        resolve(res)
+      },
+      fail: (err) => {
+        reject(err)
+      }
+    });
+  })
+}
+
+export const login = (content) => {
+  return new Promise((resolve, reject) => {
+    wx.login({
+      success: (res) => {
+        resolve(res)
+      },
+      fail: (err) => {
+        reject(err)
+      }
+    });
+  })
+}

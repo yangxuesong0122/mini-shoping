@@ -1,4 +1,5 @@
-// pages/auth/index.js
+import { getUserProfile, login } from "../../utils/asyncWx"
+import { request } from "../../request/index"
 Page({
 
   /**
@@ -14,53 +15,37 @@ Page({
   onLoad: function (options) {
 
   },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-
+  // 获取用户信息
+  async handleGetUserProfile() {
+    try {
+      // 获取用户信息
+      let userInfo = await getUserProfile()
+      const {encryptedData, rawData, iv, signature} = userInfo
+      // 获取小程序登录成功后的code
+      const {code} = await login()
+      const lofinParams = {
+        code,
+        encryptedData,
+        rawData,
+        iv,
+        signature
+      }
+      // 发送请求获取用户token
+      // const {token} = await request({
+      //   url: 'users/wxlogin',
+      //   method: 'post',
+      //   data: lofinParams
+      // })
+      // 由于没有企业账号，这里的token是null，先用写死的token
+      // Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOjIzLCJpYXQiOjE1NjQ3MzAwNzksImV4cCI6MTAwMTU2NDczMDA3OH0.YPt-XeLnjV-_1ITaXGY2FhxmCe4NvXuRnRB8OMCfnPo
+      // 把token存到缓存，同时跳转到上一个页面
+      wx.setStorageSync('token', 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOjIzLCJpYXQiOjE1NjQ3MzAwNzksImV4cCI6MTAwMTU2NDczMDA3OH0.YPt-XeLnjV-_1ITaXGY2FhxmCe4NvXuRnRB8OMCfnPo');
+      // 返回上一个页面
+      wx.navigateBack({
+        delta: 1
+      })
+    } catch(err) {
+      console.log(err)
+    }
   }
 })
