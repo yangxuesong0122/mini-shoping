@@ -21,20 +21,31 @@
     3 没有存在 把商品添加到收藏数组中 存入到缓存中即可
  */
 import { request } from "../../request/index"
+import { showToast } from "../../utils/asyncWx"
 import regeneratorRuntime from '../../lib/runtime/runtime'
 Page({
   /**
    * 页面的初始数据
    */
   data: {
-    goodsObj: {}
+    goodsObj: {},
+    isCollect: false // 是否收藏
   },
   goodsInfo: {},
 
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
+  // onLoad: function (options) {
+  //   // 获取商品详情
+  //   this.getGoodsDetail(options.goods_id)
+  // },
+  onShow: function () {
+    // 拿到当前的页面栈
+    let pages = getCurrentPages()
+    // 拿到当前的页面对象
+    let currentPage = pages[pages.length - 1]
+    let {options} = currentPage
     // 获取商品详情
     this.getGoodsDetail(options.goods_id)
   },
@@ -45,6 +56,10 @@ Page({
       data: {goods_id}
     })
     this.goodsInfo = goodsObj
+    // 获取缓存中的商品收藏数组
+    let goodsCollect = wx.getStorageSync('goodsCollect') || []
+    // 判断当前商品是否被收藏
+    let isCollect = goodsCollect.some(v => v.goods_id === this.goodsInfo.goods_id)
     this.setData({
       goodsObj: {
         pics: goodsObj.pics,
@@ -53,7 +68,8 @@ Page({
         // 部分iphone手机不识别webp图片格式，最好让后台修改，临时自己改
         // 要确保后台存在 1.webp => 1.jpg
         goods_introduce: goodsObj.goods_introduce.replace(/\.webp/g, '.jpg')
-      }
+      },
+      isCollect
     })
   },
   // 点击轮播图放大预览
@@ -87,5 +103,28 @@ Page({
       icon: 'success',
       mask: true
     }) 
+  },
+  // 点击商品收藏
+  handleGoodscollect() {
+    let isCollect = false
+    // 获取缓存中的商品收藏数组
+    let goodsCollect = wx.getStorageSync('goodsCollect') || []
+    // 判断该商品是否被收藏过
+    let index = goodsCollect.findIndex(v => v.goods_id === this.goodsInfo.goods_id)
+    if (index === -1) {
+      // 没被收藏
+      goodsCollect.push(this.goodsInfo)
+      isCollect = true
+      showToast('收藏成功')
+    } else {
+      // 已经收藏,删除该商品
+      goodsCollect.splice(index, 1)
+      isCollect = false
+      showToast('取消收藏')
+    }
+    wx.setStorageSync('goodsCollect', goodsCollect)
+    this.setData({
+      isCollect
+    })
   }
 })

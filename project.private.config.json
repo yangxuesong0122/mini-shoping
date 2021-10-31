@@ -89,6 +89,11 @@
           "pathName": "pages/order/index",
           "query": "type=1",
           "scene": null
+        },
+        {
+          "name": "收藏页面",
+          "pathName": "pages/collect/index",
+          "scene": null
         }
       ]
     }
