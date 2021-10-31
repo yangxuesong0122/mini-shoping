@@ -1,0 +1,5 @@
+<view class="up_img">
+  <image src="{{src}}"></image>
+  <icon data-ix="{{inde}}" bindtap="handleDeleteImage" type="clear" size="23" color="red"></icon>
+</view>
+  

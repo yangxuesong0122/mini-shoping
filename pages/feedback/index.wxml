@@ -8,15 +8,19 @@
       <text>其他</text>
     </view>
     <view class="fb_content">
-      <textarea placeholder="请描述一下你的问题">
-        
-      </textarea>
+      <textarea bindinput="handleTextInput" value="{{textVal}}" placeholder="请描述一下你的问题"></textarea>
       <view class="fb_tool">
-        <button>+</button>
+        <button bindtap="handleUpImage">+</button>
+        <view
+          wx:for="{{chooseImages}}"
+          wx:key="*this"
+          class="up-img">
+          <UpImage src="{{item}}" inde="{{index}}" bindimgDel="handleBindimgDel"></UpImage>
+        </view>
       </view>
     </view>
     <view class="fb_form_btn">
-      <button type="primary">
+      <button type="primary" bindtap="handleTiJiao">
         <icon type="success" color="white"></icon>提交
       </button>
     </view>
