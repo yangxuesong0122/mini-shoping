@@ -99,6 +99,12 @@
         {
           "name": "商品搜索",
           "pathName": "pages/search/index",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "意见反馈",
+          "pathName": "pages/feedback/index",
           "scene": null
         }
       ]

@@ -66,7 +66,7 @@
         <view>联系客服</view>
         <view>400-029-8888</view>
       </view>
-      <view class="app_info_item">意见反馈</view>
+      <navigator url="/pages/feedback/index" class="app_info_item">意见反馈</navigator>
       <view class="app_info_item">关于我们</view>
     </view>
     <!--推荐-->

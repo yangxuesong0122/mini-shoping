@@ -16,7 +16,9 @@ Page({
    * 页面的初始数据
    */
   data: {
-    goods: []
+    goods: [],
+    inputValue: '',
+    isSearch: false
   },
   timeId: '',
   handleInput(e) {
@@ -24,8 +26,15 @@ Page({
     const {value} = e.detail
     // 检查合法性
     if (!value.trim()) {
+      this.setData({
+        goods: [],
+        isSearch: false
+      })
       return
     }
+    this.setData({
+      isSearch: true
+    })
     // 获取数据
     clearTimeout(this.timeId)
     this.timeId = setTimeout(() => {
@@ -40,6 +49,14 @@ Page({
     })
     this.setData({
       goods
+    })
+  },
+  // 取消
+  handleCancel() {
+    this.setData({
+      goods: [],
+      isSearch: false,
+      inputValue: ''
     })
   }
 })
