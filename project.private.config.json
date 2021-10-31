@@ -93,6 +93,12 @@
         {
           "name": "收藏页面",
           "pathName": "pages/collect/index",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "商品搜索",
+          "pathName": "pages/search/index",
           "scene": null
         }
       ]
